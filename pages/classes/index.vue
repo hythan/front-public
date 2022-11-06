@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="courses"
+      :items="classes"
       item-key="name"
       class="elevation-1"
       :search="search"
@@ -10,7 +10,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Cursos</v-toolbar-title
+          <v-toolbar-title>Turmas Abertas</v-toolbar-title
           ><v-divider class="mx-4" inset vertical></v-divider>
         </v-toolbar>
         <v-text-field v-model="search" label="Search" class="mx-4" />
@@ -42,14 +42,13 @@ export default {
   data() {
     return {
       search: '',
-      courses: [],
+      classes: [],
     }
   },
   computed: {
     headers() {
       return [
         { text: 'Name', value: 'name' },
-        { text: 'Price', value: 'price' },
         { text: 'Actions', value: 'actions' },
       ]
     },
@@ -63,18 +62,19 @@ export default {
         value.toString().toLocaleLowerCase().indexOf(search) !== -1
       )
     },
-    getOrUpdateCoursesList() {
-      this.$axios.get('courses').then((response) => {
-        this.courses = response.data
+    getOrUpdateClassesList() {
+      this.$axios.get('classes', {
+         params: this.$route.query,
+      }).then((response) => {
+        this.classes = response.data
       })
     },
     viewCourseInfo(course) {
-      console.log(course);
       this.$nuxt.$emit('viewCourseInfo', course);
     }
   },
   mounted() {
-    this.getOrUpdateCoursesList()
+    this.getOrUpdateClassesList()
   },
 }
 </script>

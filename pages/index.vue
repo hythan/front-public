@@ -2,7 +2,6 @@
   <div>
     <Header />
     <Banner />
-    <div class="container">
       <div>
         <div class="col">
           <div class="container-about">
@@ -55,7 +54,7 @@
           </div>
           <div class="container-courses">
             <div class="courses">
-              <img class="course-img" src="~/assets/imgs/banners/courses.jpg" alt="">
+              <img class="course-img" src="~/assets/imgs/banners/courses.png" alt="">
               <div class="course-content">
                 <p class="course-text">Conheça os nossos treinamentos!</p>
                 <a href="/courses" class="button-click-here">Clique Aqui</a>
@@ -65,12 +64,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- <VueSlickCarousel :slidesToShow=2>
-      <div v-for="item in this.courses" :key="item.id">
-        <CoursesCard />
-      </div>
-    </VueSlickCarousel> -->
   </div>
 </template>
 
@@ -125,11 +118,13 @@ export default {
   height: 300px;
   width: 100%;
 }
-
+.courses {
+  margin-top: 10px;
+}
 .course-content {
   position: relative;
   background: #b9e85c;
-  top: -170px;
+  top: -185px;
   z-index: 1;
   width: 250px;
   margin: 0 auto;
@@ -150,6 +145,26 @@ export default {
 .course-img {
   height: 200px;
   width: 100%;
+}
+
+.button-click-here {
+  background: white;
+  height: 40px;
+  width: 120px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: black;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.button-click-here:hover {
+  background: black;
+  color: white;
 }
 
 @media only screen and (max-width: 600px){

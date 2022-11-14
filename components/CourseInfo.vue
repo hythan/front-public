@@ -3,7 +3,7 @@
     <form @submit.prevent="submit">
       <v-card>
         <v-card-text>
-          <v-card-title> Add Student Registration </v-card-title>
+          <v-card-title> Curso: {{course.name}} </v-card-title>
           <v-text-field v-model="course.name" label="Name" :readonly="true" />
              <v-text-field
           v-model="course.goal"

@@ -6,7 +6,7 @@
           <img class="logo-img" src="~/assets/imgs/logo-maxi.png" />
           Maxiambiental Treinamentos
         </div>
-         <v-icon @click.stop="drawer = !drawer"> mdi-menu </v-icon>
+        <v-icon @click.stop="drawer = !drawer"> mdi-menu </v-icon>
       </v-row>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary right>
@@ -17,11 +17,13 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title class="link-title">{{ item.title }}</v-list-item-title>
+            <v-list-item-title class="link-title">{{
+              item.title
+            }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
       </v-list>
+      <v-btn class="logout-btn-mobile" @click="handleLogout()">Logout</v-btn>
     </v-navigation-drawer>
   </div>
 </template>
@@ -36,6 +38,12 @@ export default {
       ],
     }
   },
+  methods: {
+    async handleLogout() {
+      await this.$auth.logout()
+      this.$router.push("/login")
+    },
+  },
 }
 </script>
 <style scoped>
@@ -46,7 +54,7 @@ export default {
 .logo {
   margin: 0 auto;
   font-size: 18px;
-  color:#b9e85c;
+  color: #b9e85c;
   font-weight: 700;
 }
 .link-title {

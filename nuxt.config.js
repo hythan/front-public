@@ -21,6 +21,7 @@ export default {
   plugins: [
     '~/plugins/v-slick',
     '~/plugins/v-mask',
+    '~/plugins/vee-validate',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -41,6 +42,8 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    'nuxt-sweetalert2'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -50,5 +53,20 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: [
+      'vee-validate'
+    ]
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'students/login', method: 'post', propertyName: 'token'},
+          logout: false,
+          user: { url: 'students/user', method: 'get', propertyName: 'user'}
+        },
+      }
+    }
+  }
 }

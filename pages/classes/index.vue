@@ -24,7 +24,7 @@
               class="mr-2"
               v-bind="attrs"
               v-on="on"
-              @click="viewCourseInfo(item)"
+              @click="viewClassInfo(item)"
             >
               mdi-eye
             </v-icon>
@@ -33,7 +33,7 @@
         </v-tooltip>
       </template>
     </v-data-table>
-    <CourseInfo />
+    <ClassInfo />
   </div>
 </template>
 
@@ -67,10 +67,13 @@ export default {
          params: this.$route.query,
       }).then((response) => {
         this.classes = response.data
-      })
+        this.classes = this.classes.filter(
+          (item) => (new Date(item.startDate).getTime()) >= ((new Date()).getTime())
+      )
+    })
     },
-    viewCourseInfo(course) {
-      this.$nuxt.$emit('viewCourseInfo', course);
+    viewClassInfo(classObj) {
+      this.$nuxt.$emit('viewClassInfo', classObj);
     }
   },
   mounted() {

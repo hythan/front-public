@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="courses"
+      :items="data"
       item-key="name"
       class="elevation-1"
       :search="search"
@@ -10,46 +10,50 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Cursos</v-toolbar-title
+          <v-toolbar-title>Certificados</v-toolbar-title
           ><v-divider class="mx-4" inset vertical></v-divider>
         </v-toolbar>
-        <v-text-field v-model="search" label="Search" class="mx-4" />
+        <v-text-field
+          v-model="search"
+          label="Search"
+          placeholder="Digite o nome do curso"
+          class="mx-4"
+        />
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-icon
               color="blue"
-              small
               class="mr-2"
               v-bind="attrs"
               v-on="on"
-              @click="viewCourseInfo(item)"
+              @click="viewCertification(item.id)"
             >
-              mdi-eye
+              mdi-file-download
             </v-icon>
           </template>
-          <span>Informações</span>
+          <span>Baixar Certificado</span>
         </v-tooltip>
+      <StudentCertification :certification="item" />
       </template>
     </v-data-table>
-    <CourseInfo />
   </div>
 </template>
 
 <script>
 export default {
+  middleware: 'auth',
   data() {
     return {
       search: '',
-      courses: [],
+      data: [],
     }
   },
   computed: {
     headers() {
       return [
-        { text: 'Name', value: 'name' },
-        { text: 'Price', value: 'price' },
+        { text: 'Name', value: 'course.name' },
         { text: 'Actions', value: 'actions' },
       ]
     },
@@ -63,17 +67,18 @@ export default {
         value.toString().toLocaleLowerCase().indexOf(search) !== -1
       )
     },
-    getOrUpdateCoursesList() {
-      this.$axios.get('courses').then((response) => {
-        this.courses = response.data
+    getOrUpdateCertificationList() {
+      this.$axios.get('students/profile').then((response) => {
+        this.data = response.data.certifications
+        console.log(this.data);
       })
     },
-    viewCourseInfo(course) {
-      this.$nuxt.$emit('viewCourseInfo', course);
+    viewCertification(id) {
+      this.$nuxt.$emit('generateCertification', id);
     }
   },
   mounted() {
-    this.getOrUpdateCoursesList()
+    this.getOrUpdateCertificationList()
   },
 }
 </script>

@@ -83,7 +83,6 @@ export default {
     this.$nuxt.$on('viewClassInfo', ($event) => {
       this.classObj = $event
       this.dialog = true
-      console.log(this.classObj)
     })
   },
   data() {
@@ -106,7 +105,7 @@ export default {
           })
           .then((response) => {
             if(response.data.status == 304) {
-              Swal.fire('You alredy registrated to this class! Confirm if you alredy payed the registration and verify the start date of this course!', '', 'error')
+              Swal.fire('You alredy registrated to this class!', 'Confirm if you alredy payed the registration and verify the start date of this class!', 'error')
               return;
             }
             Swal.fire('Successfuly registrated for this class!', '', 'success')

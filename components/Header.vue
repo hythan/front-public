@@ -9,7 +9,10 @@
         <v-icon @click.stop="drawer = !drawer"> mdi-menu </v-icon>
       </v-row>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary right>
+    <v-navigation-drawer v-model="drawer" fixed temporary right>
+       <v-btn v-if="isLoggedIn" class="login-logout-btn" @click="handleLogout()">Logout</v-btn>
+      <v-btn v-else class="login-logout-btn login-btn" @click="handleLogin()">Login</v-btn>
+      <v-divider/>
       <v-list dense>
         <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
           <v-list-item-icon>
@@ -23,7 +26,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-btn class="logout-btn-mobile" @click="handleLogout()">Logout</v-btn>
     </v-navigation-drawer>
   </div>
 </template>
@@ -35,13 +37,21 @@ export default {
       items: [
         { title: 'Home', icon: 'mdi-view-dashboard', to: '/' },
         { title: 'Courses', icon: 'mdi-school', to: '/courses' },
+        { title: 'Certifications', icon: 'mdi-newspaper-variant-outline', to: '/certifications' },
       ],
     }
   },
   methods: {
     async handleLogout() {
       await this.$auth.logout()
-      this.$router.push("/login")
+    },
+    handleLogin() {
+      this.$router.push('/login')
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$auth.loggedIn
     },
   },
 }
@@ -59,5 +69,16 @@ export default {
 }
 .link-title {
   margin-left: 10px;
+}
+
+.login-logout-btn {
+  display: flex;
+  margin: 15px auto;
+}
+
+.login-btn {
+  background-color: green !important;
+  border: green;
+  color: white;
 }
 </style>

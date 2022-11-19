@@ -57,12 +57,12 @@
                 }}</span>
               </b-form-group>
               <div class="container__registration-forgotpass">
-                <div class="forgotpass">
+                <!-- <div class="forgotpass">
                   Esqueceu sua senha?
                   <nuxt-link :to="'/'">Clique aqui</nuxt-link>
-                </div>
+                </div> -->
                 <div class="registration">
-                  Não possui conta? <nuxt-link :to="'/'">Registre-se</nuxt-link>
+                  Não possui conta? <nuxt-link :to="'/registration'">Registre-se</nuxt-link>
                 </div>
               </div>
             </validation-provider>

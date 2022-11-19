@@ -66,6 +66,9 @@ export default {
     getOrUpdateCoursesList() {
       this.$axios.get('courses').then((response) => {
         this.courses = response.data
+        this.courses.forEach((e) => {
+          e.price = (new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(e.price/100)))
+        })
       })
     },
     viewCourseInfo(course) {

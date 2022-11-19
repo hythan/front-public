@@ -43,7 +43,6 @@
 
 <script>
 export default {
-  middleware: 'auth',
   data() {
     return {
       search: '',
@@ -53,7 +52,8 @@ export default {
   computed: {
     headers() {
       return [
-        { text: 'Name', value: 'course.name' },
+        { text: 'Student Name', value: 'name' },
+        { text: 'Course Name', value: 'course.name' },
         { text: 'Actions', value: 'actions' },
       ]
     },
@@ -68,9 +68,11 @@ export default {
       )
     },
     getOrUpdateCertificationList() {
+       if (!this.$auth.loggedIn) {
+          return;
+       }
       this.$axios.get('students/profile').then((response) => {
         this.data = response.data.certifications
-        console.log(this.data);
       })
     },
     viewCertification(id) {

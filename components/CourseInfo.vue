@@ -27,11 +27,9 @@
           :readonly="true"
         />
         <v-text-field
-          ref="inputRef"
           v-model="course.price"
           label="Price"
           :readonly="true"
-          v-mask="'######,##'"
         />
         </v-card-text>
         <v-card-actions>
@@ -65,22 +63,6 @@ export default {
       this.$router.push({name:'classes', query:{courseId: this.course.id}});
     }
   },
-  // TODO: ajustar price null
-  // setup(props) {
-
-  //   const brlOptions = {
-  //     currency: 'BRL',
-  //     currencyDisplay: 'symbol',
-  //     precision: 2,
-  //     autoDecimalDigits: true,
-  //     exportValueAsInteger: false,
-  //     autoSign: false,
-  //     useGrouping: true,
-  //   }
-  //   const { inputRef } = useCurrencyInput(brlOptions)
-  //   console.log(inputRef);
-  //   return { inputRef }
-  // },
 }
 </script>
 

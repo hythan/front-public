@@ -31,6 +31,21 @@
           </template>
           <span>Informações</span>
         </v-tooltip>
+         <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              color="green"
+              small
+              class="mr-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="registration(item)"
+            >
+              mdi-note-edit-outline
+            </v-icon>
+          </template>
+          <span>Inscrever-se</span>
+        </v-tooltip>
       </template>
     </v-data-table>
     <ClassInfo />
@@ -38,6 +53,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   data() {
     return {
@@ -74,7 +91,25 @@ export default {
     },
     viewClassInfo(classObj) {
       this.$nuxt.$emit('viewClassInfo', classObj);
-    }
+    },
+     async registration(classObj) {
+      if (!this.$auth.loggedIn) {
+        this.$router.push('/login');
+        return ;
+      }
+        this.$axios
+          .post('registrations', {
+            studentId: this.$auth.$state.user.id,
+            classId: classObj.id,
+          })
+          .then((response) => {
+            if(response.data.status == 304) {
+              Swal.fire('You alredy registrated to this class!', 'Confirm if you alredy payed the registration and verify the start date of this class!', 'error')
+              return;
+            }
+            Swal.fire('Successfuly registrated for this class!', '', 'success')
+          })
+    },
   },
   mounted() {
     this.getOrUpdateClassesList()

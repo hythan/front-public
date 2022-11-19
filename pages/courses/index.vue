@@ -31,6 +31,21 @@
           </template>
           <span>Informações</span>
         </v-tooltip>
+         <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              color="green"
+              small
+              class="mr-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="goToClasses(item)"
+            >
+              mdi-school-outline
+            </v-icon>
+          </template>
+          <span>Ver Turmas</span>
+        </v-tooltip>
       </template>
     </v-data-table>
     <CourseInfo />
@@ -73,6 +88,9 @@ export default {
     },
     viewCourseInfo(course) {
       this.$nuxt.$emit('viewCourseInfo', course);
+    },
+    goToClasses(course) {
+      this.$router.push({name:'classes', query:{courseId: course.id}});
     }
   },
   mounted() {

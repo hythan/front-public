@@ -10,9 +10,14 @@
       </v-row>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary right>
-       <v-btn v-if="isLoggedIn" class="login-logout-btn" @click="handleLogout()">Logout</v-btn>
-      <v-btn v-else class="login-logout-btn login-btn" @click="handleLogin()">Login</v-btn>
-      <v-divider/>
+      <div v-if="isLoggedIn" class="div--loggedin">
+        <div class="user-email">{{ this.$auth.state.user.email }}</div>
+        <v-btn class="login-logout-btn" @click="handleLogout()">Logout</v-btn>
+      </div>
+      <v-btn v-else class="login-logout-btn login-btn" @click="handleLogin()"
+        >Login</v-btn
+      >
+      <v-divider />
       <v-list dense>
         <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
           <v-list-item-icon>
@@ -37,7 +42,11 @@ export default {
       items: [
         { title: 'Home', icon: 'mdi-view-dashboard', to: '/' },
         { title: 'Courses', icon: 'mdi-school', to: '/courses' },
-        { title: 'Certifications', icon: 'mdi-newspaper-variant-outline', to: '/certifications' },
+        {
+          title: 'Certifications',
+          icon: 'mdi-newspaper-variant-outline',
+          to: '/certifications',
+        },
       ],
     }
   },
@@ -80,5 +89,14 @@ export default {
   background-color: green !important;
   border: green;
   color: white;
+}
+.div--loggedin {
+  display: flex;
+  margin: 15px auto;
+  flex-direction: column;
+}
+.user-email {
+  display: flex;
+  align-self: center;
 }
 </style>
